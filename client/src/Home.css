@@ -1,0 +1,41 @@
+nav a {
+     color: #ffffff;
+     font-size: 1.3em;
+     margin-left: 5%;
+  }
+
+.aStyle {
+    color: rgb(255, 255, 255);
+    margin-left: 50%;
+    text-decoration: none;
+    transition: all 6s easy;
+    font-family: 'Roboto Slab', serif;
+    font-weight: 800;
+    font-size: 1.6em;
+  }
+
+.aStyle:hover {
+    color: #a1a0a0;
+    text-decoration: none;
+    transition: all 6s easy;
+}
+
+.body {
+    padding: 3%;
+}
+
+.nav-content {
+    margin-left: 35%;
+}
+
+#logout {
+    margin-left: 230%;
+}
+
+#logoutAdminHome {
+    margin-left: 120%;
+}
+
+.smallButtons {
+    width: 40%;
+}
