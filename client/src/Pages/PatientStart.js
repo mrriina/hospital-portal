@@ -12,22 +12,24 @@ function PatientStart() {
     const [surname, setSurname] = useState("");
     const [patronymic, setPatronymic] = useState("");
     const [age, setAge] = useState("");
-    const [sex, setSex] = useState("");
+    const [gender, setGender] = useState("");
     const [address, setAddress] = useState("");
     const [phone, setPhone] = useState("");
+    const [email, setEmail] = useState("");
 
     const username = window.location.href.split("=")[1];
 
     const apply = () => {
-      if(name && surname && patronymic && age && sex && address && phone && username) {
+      if(name && surname && patronymic && age && gender && address && phone && email && username) {
          Axios.post("http://localhost:3001/applyInfPatient", {
             name: name,
             surname: surname,
             patronymic: patronymic,
             age: age,
-            sex: sex,
+            gender: gender,
             address: address,
             phone: phone,
+            email: email,
             username: username,
         }).then((response) => {
             setStatus('success');
@@ -89,7 +91,7 @@ function PatientStart() {
                         <input
                             type="radio"
                             class="form-check-input"
-                            onChange={()=>{setSex("male")}}
+                            onChange={()=>{setGender("male")}}
                             value="male"
                             name="flexRadioDefault"
                             id="flexRadioDefault1"/>
@@ -99,7 +101,7 @@ function PatientStart() {
                         <input
                             type="radio"
                             class="form-check-input"
-                            onChange={()=>{setSex("female")}}
+                            onChange={()=>{setGender("female")}}
                             value="female"
                             name="flexRadioDefault"
                             id="flexRadioDefault2"/>
@@ -124,6 +126,16 @@ function PatientStart() {
                               className="position-relative"
                               onChange = { (e) => {
                                 setPhone(e.target.value);
+                              }} />
+               </Form.Group>
+               <Form.Group className="mb-3">
+                  <Form.Control type="text" 
+                              size="lg" 
+                              placeholder="Email" 
+                              autoComplete="email" 
+                              className="position-relative"
+                              onChange = { (e) => {
+                                 setEmail(e.target.value);
                               }} />
                </Form.Group>
             

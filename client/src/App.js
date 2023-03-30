@@ -45,6 +45,7 @@ function App() {
          username: username,
          password: password,
       }).then((response) => {
+         console.log('response=='+JSON.stringify(response));
          if (response.data[0] != null) {
             setLoginStatus('success');
             if(response.data[0].role == 'patient') {

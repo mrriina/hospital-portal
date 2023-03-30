@@ -184,7 +184,7 @@ class AdminTickets extends React.Component {
                                                     this.time = e.target.value;
                                                 }} />
                                 </Form.Group>
-                                <DoctorsListForNewTicket func={(val)=>{this.doctor = val}}/>
+                                <DoctorsListForNewTicket func={(val)=>{console.log('val= '+val); this.doctor = val;}}/>
                                 
                                 <div className="d-grid">
                                     <Button variant="primary" onClick={this.newTicket} size="lg">Create</Button>
