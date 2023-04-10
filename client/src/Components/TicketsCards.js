@@ -15,9 +15,9 @@ class TicketsCards extends React.Component {
         };    
     }
 
-    deleteTicket = (idticket) => {
+    deleteTicket = (idtickets) => {
         Axios.post("http://localhost:3001/deleteUsersTicket", {
-            idticket: idticket,
+            idtickets: idtickets,
         }).then((response) => {
            this.componentDidMount();
         });
@@ -40,7 +40,7 @@ class TicketsCards extends React.Component {
                                     <tr>Time: {item.time}</tr>
                                     <tr>Cabinet: {item.doctorCabinet}</tr>
                                 </Card.Text>
-                                <Button variant="btn btn-danger" onClick={(e)=> {this.deleteTicket(item.idticket)}}>Delete</Button>
+                                <Button variant="btn btn-danger" onClick={(e)=> {this.deleteTicket(item.idtickets)}}>Delete</Button>
                             </Card.Body>
                         </Card>
                         </div>

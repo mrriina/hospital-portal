@@ -12,10 +12,9 @@ function Patient() {
     const [surname, setSurname] = useState("");
     const [patronymic, setPatronymic] = useState("");
     const [age, setAge] = useState("");
-    const [gender, setGender] = useState("");
+    const [sex, setSex] = useState("");
     const [address, setAddress] = useState("");
     const [phone, setPhone] = useState("");
-    const [email, setEmail] = useState("");
 
     const [isDisabled, setIsDisabled] = useState(true);
     const [isEditButton, setIsEditButton] = useState(true);
@@ -37,10 +36,9 @@ function Patient() {
             surname: surname,
             patronymic: patronymic,
             age: age,
-            gender: gender,
+            sex: sex,
             address: address,
             phone: phone,
-            email: email,
             username: username,
         }).then((response) => {});
      };
@@ -54,10 +52,9 @@ function Patient() {
                 setSurname(response.data[0].surname);
                 setPatronymic(response.data[0].patronymic);
                 setAge(response.data[0].age);
-                setGender(response.data[0].gender);
+                setSex(response.data[0].sex);
                 setAddress(response.data[0].address);
                 setPhone(response.data[0].phone);
-                setEmail(response.data[0].email);
             });
 
             return (
@@ -134,7 +131,7 @@ function Patient() {
                                 <input
                                     type="radio"
                                     class="form-check-input"
-                                    onChange={()=>{setGender("male")}}
+                                    onChange={()=>{setSex("male")}}
                                     value="male"
                                     name="flexRadioDefault"
                                     id="flexRadioDefault1"
@@ -145,7 +142,7 @@ function Patient() {
                                 <input
                                     type="radio"
                                     class="form-check-input"
-                                    onChange={()=>{setGender("female")}}
+                                    onChange={()=>{setSex("female")}}
                                     value="female"
                                     name="flexRadioDefault"
                                     id="flexRadioDefault2"
@@ -175,18 +172,6 @@ function Patient() {
                                         setPhone(e.target.value);
                                     }} 
                                     value={phone}
-                                    disabled={isDisabled}/>
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Control type="text" 
-                                    size="lg" 
-                                    placeholder="Email" 
-                                    autoComplete="email" 
-                                    className="position-relative"
-                                    onChange = { (e) => {
-                                        setEmail(e.target.value);
-                                    }} 
-                                    value={email}
                                     disabled={isDisabled}/>
                     </Form.Group>
                     
