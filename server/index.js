@@ -53,6 +53,27 @@ const db = mysql.createConnection({
     );
  });
 
+
+ app.post('/checkPersonByAddress', (req, res) => {
+   const surname = req.body.surname;
+   const name = req.body.name;
+   const patronymic = req.body.patronymic;
+   const address = req.body.address;
+   
+   db.execute(
+       "SELECT * FROM people_by_address WHERE surname = ? AND name = ? AND patronymic = ? AND address = ?",
+       [surname, name, patronymic, address],
+       (err, result)=> {
+           if (err) {
+               res.send({err: err});
+           }
+           
+           res.send(result);
+       }
+   );
+});
+
+
  app.post('/applyInfPatient', (req, res) => {
     const name = req.body.name;
     const surname = req.body.surname;

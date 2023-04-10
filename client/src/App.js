@@ -26,6 +26,11 @@ function App() {
       if(confPasswordReg != passwordReg) {
          setRegisterStatus('passwords don`t match');
       }
+      
+      else if(passwordReg.length > 45 || usernameReg.length > 45) {
+         setRegisterStatus('username or password is too long');
+      }
+
       else {
          Axios.post("http://localhost:3001/register", {
             username: usernameReg,
@@ -33,7 +38,6 @@ function App() {
             role: 'patient',
            }).then((response) => {
               console.log(response);
-              
            });
          window.location.assign('http://localhost:3000/patientStart?username='+usernameReg);
          handleClose();

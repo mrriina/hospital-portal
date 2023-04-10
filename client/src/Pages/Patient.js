@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Axios from 'axios';
+import '../App.css';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -20,6 +21,8 @@ function Patient() {
     const [isEditButton, setIsEditButton] = useState(true);
     const [isApplyButton, setIsApplyButton] = useState(false);
 
+    const [status, setStatus] = useState("");
+
     const edit = () => {
         setIsDisabled(false);
         setIsEditButton(false);
@@ -31,16 +34,43 @@ function Patient() {
         setIsEditButton(true);
         setIsApplyButton(false);
 
-        Axios.post("http://localhost:3001/updateInfPatient", {
-            name: name,
-            surname: surname,
-            patronymic: patronymic,
-            age: age,
-            sex: sex,
-            address: address,
-            phone: phone,
-            username: username,
-        }).then((response) => {});
+        const phoneNumberRegex = /^\+375\d{2}\d{7}$/;
+
+        if(name && surname && patronymic && age && sex && address && phone && username) {
+            if (!(!isNaN(age) && parseInt(age) >= 0 && parseInt(age) <= 150)) {
+                setStatus('Wrong age. Check the entered data.');
+                return;
+            }
+
+            if (!phoneNumberRegex.test(phone)) {
+                setStatus('The phone number is invalid (format: +375XXYYYYYYY)');
+                return;
+            }
+
+            Axios.post("http://localhost:3001/checkPersonByAddress", {
+                  name: name,
+                  surname: surname,
+                  patronymic: patronymic,
+                  address: address,
+              }).then((response) => {
+                  if(response.data[0] == null){
+                     setStatus('There is no person with such data in the database. Check the entered data.');
+                  } else {
+                        Axios.post("http://localhost:3001/updateInfPatient", {
+                            name: name,
+                            surname: surname,
+                            patronymic: patronymic,
+                            age: age,
+                            sex: sex,
+                            address: address,
+                            phone: phone,
+                            username: username,
+                        }).then((resp) => {setStatus('success');});
+                    }
+                });
+            } else {
+                setStatus('all fields must be filled in!');
+             }
      };
 
     function ChangeButton() {
@@ -78,6 +108,7 @@ function Patient() {
                 <Container id="main-container" className="d-grid h-100">
                     <Form id="sign-in-form" className="text-center p-3 w-100">
                     <h1 className="mb-3 fs-3 fw-normal">Patient:</h1>
+                    <h2 className="status" style={{color: status=='success' ? 'green' : 'red' }}>{status}</h2>
                     <Form.Group>
                         <Form.Control type="text" 
                                     size="lg" 

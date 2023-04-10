@@ -19,20 +19,44 @@ function PatientStart() {
     const username = window.location.href.split("=")[1];
 
     const apply = () => {
+      const phoneNumberRegex = /^\+375\d{2}\d{7}$/;
+
       if(name && surname && patronymic && age && sex && address && phone && username) {
-         Axios.post("http://localhost:3001/applyInfPatient", {
-            name: name,
-            surname: surname,
-            patronymic: patronymic,
-            age: age,
-            sex: sex,
-            address: address,
-            phone: phone,
-            username: username,
-        }).then((response) => {
-            setStatus('success');
-            window.location.assign('http://localhost:3000/patientHome?username='+username);
-        });
+         if (!(!isNaN(age) && parseInt(age) >= 0 && parseInt(age) <= 150)) {
+            setStatus('Wrong age. Check the entered data.');
+            return;
+         }
+
+         if (!phoneNumberRegex.test(phone)) {
+            setStatus('The phone number is invalid (format: +375XXYYYYYYY)');
+            return;
+         }
+
+         Axios.post("http://localhost:3001/checkPersonByAddress", {
+                  name: name,
+                  surname: surname,
+                  patronymic: patronymic,
+                  address: address,
+              }).then((response) => {
+                  if(response.data[0] == null){
+                     setStatus('There is no person with such data in the database. Check the entered data.');
+                  } else {
+                     Axios.post("http://localhost:3001/applyInfPatient", {
+                           name: name,
+                           surname: surname,
+                           patronymic: patronymic,
+                           age: age,
+                           sex: sex,
+                           address: address,
+                           phone: phone,
+                           username: username,
+                     }).then((resp) => {
+                           setStatus('success');
+                           window.location.assign('http://localhost:3000/patientHome?username='+username);
+                     });
+                  }
+              });
+              
       } else {
          setStatus('all fields must be filled in!');
       }
