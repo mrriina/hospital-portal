@@ -20,6 +20,11 @@ nav a {
     transition: all 6s easy;
 }
 
+.logoNavText {
+    color: rgb(255, 255, 255);
+    margin: 0 50px 0 10px;
+}
+
 .body {
     padding: 3%;
 }
@@ -38,4 +43,9 @@ nav a {
 
 .smallButtons {
     width: 40%;
+}
+
+.navbar-expand {
+    flex-wrap: nowrap;
+    justify-content: space-between;
 }

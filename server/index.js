@@ -232,6 +232,59 @@ app.post('/deleteUsersTicket', (req, res) => {
    );
 });
 
+//----------------------------------- doctor home ------------------------------------------
+
+app.post('/doctorOutputTickets', (req, res) => {
+    const username = req.body.username;
+    const date = req.body.date.slice(0, 10);
+    const free = 'false';
+    console.log('d usname= '+username);
+    console.log('date= '+date);
+    
+    db.query(
+       "SELECT idtickets, time, user, doctor, "+
+       "(SELECT idpatient FROM patient WHERE username=user) AS patientId, "+
+       "(SELECT name FROM patient WHERE username=user) AS patientName, "+
+       "(SELECT surname FROM patient WHERE username=user) AS patientSurname, "+
+       "(SELECT patronymic FROM patient WHERE username=user) AS patientPatronymic, "+
+       "(SELECT sex FROM patient WHERE username=user) AS patientGender, "+
+       "(SELECT age FROM patient WHERE username=user) AS patientAge, "+
+       "(SELECT address FROM patient WHERE username=user) AS patientAddress, "+
+       "(SELECT phone FROM patient WHERE username=user) AS patientPhone "+
+       "FROM tickets "+
+       "INNER JOIN doctor ON doctor.iddoctor = tickets.doctor "+
+       "WHERE doctor.username = ? AND tickets.date = ? AND tickets.free = ?",
+      [username, date, free],
+      function(err, result) {
+         if (err) {
+            res.send({err: err});
+         }
+         res.send(result);
+      }
+    );
+ });
+
+
+ app.post('/doctorAddPatientToDatabase', (req, res) => {
+    const idpatient = req.body.idpatient;
+    const iddoctor = req.body.iddoctor;
+    console.log('idpatient= '+idpatient);
+    console.log('iddoctor= '+iddoctor);
+    
+    db.execute(
+        "INSERT INTO patient_accounting (patientid, doctorid) VALUES (?,?)",
+      [idpatient, iddoctor],
+      (err, result)=> {
+         if (err) {
+            res.send({err: err});
+         }
+        
+         res.send(result);
+      }
+    );
+ });
+
+
 //----------------------------------- admin home ------------------------------------------
 
 app.post('/getPatientsAdminHome', (req, res) => {

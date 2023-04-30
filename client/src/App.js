@@ -53,9 +53,11 @@ function App() {
             setLoginStatus('success');
             if(response.data[0].role == 'patient') {
                window.location.assign('http://localhost:3000/patientHome?username='+username);
-            }
-            else if(response.data[0].role == 'admin'){
+            } else if(response.data[0].role == 'admin'){
                window.location.assign('http://localhost:3000/adminHome?username='+username);
+            } else if(response.data[0].role == 'doctor'){
+               console.log('doctor login');
+               window.location.assign('http://localhost:3000/doctorHome?username='+username);
             }
          } else {
             setLoginStatus ('incorrect username or password');

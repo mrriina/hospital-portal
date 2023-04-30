@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PatientStart from "./Pages/PatientStart";
 import PatientHome from './Pages/PatientHome';
 import AdminHome from './Pages/AdminHome';
+import DoctorHome from './Pages/DoctorHome';
  
 ReactDOM.render(
    <React.StrictMode>
@@ -18,6 +19,7 @@ ReactDOM.render(
             <Route exact path="/patientStart" element={<PatientStart/>} />
             <Route exact path="/patientHome" element={<PatientHome/>} />
             <Route exact path="/adminHome" element={<AdminHome/>} />
+            <Route exact path="/doctorHome" element={<DoctorHome/>} />
          </Routes>
       </Router>
    </React.StrictMode>,
