@@ -100,14 +100,36 @@ class DoctorTicketsCards extends React.Component {
       }
 
       additionPatientToDatabase = (idpatient, iddoctor) => {
-        Axios.post("http://localhost:3001/doctorAddPatientToDatabase", {
+        Axios.post("http://localhost:3001/doctorFindPatientInDatabase", {
                 idpatient: idpatient,
                 iddoctor: iddoctor,
                 }).then((response) => {
-                   this.successAddingPatient();
+                   console.log(JSON.stringify(response));
+                   if(response.data[0]){
+                      toast.error("This patient already exists in the database!", {
+                        position: toast.POSITION.TOP_CENTER,
+                        autoClose: 2000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                   } else {
+                      Axios.post("http://localhost:3001/doctorAddPatientToDatabase", {
+                        idpatient: idpatient,
+                        iddoctor: iddoctor,
+                        }).then((response) => {
+                          this.successAddingPatient();
+                        }).catch(error => {
+                            this.errorAddingPatient();
+                        });
+                   }
                 }).catch(error => {
-                    this.errorAddingPatient();
+                    
                 });
+
+        
       }
 
       successAddingPatient = () => {

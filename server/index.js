@@ -237,7 +237,7 @@ app.post('/deleteUsersTicket', (req, res) => {
 
 app.post('/doctorOutputTickets', (req, res) => {
     const username = req.body.username;
-    const date = req.body.date.slice(0, 10);
+    const date = req.body.date;
     const free = 'false';
     const status = 'incomplete';
     
@@ -261,6 +261,23 @@ app.post('/doctorOutputTickets', (req, res) => {
          }
          res.send(result);
       }
+    );
+ });
+
+ app.post('/doctorFindPatientInDatabase', (req, res) => {
+    const idpatient = req.body.idpatient;
+    const iddoctor = req.body.iddoctor;
+    
+    db.execute(
+        "SELECT * FROM patient_accounting WHERE patientid = ? AND doctorid = ?",
+        [idpatient, iddoctor],
+        (err, result)=> {
+            if (err) {
+                res.send({err: err});
+            }
+            
+            res.send(result);
+        }
     );
  });
 

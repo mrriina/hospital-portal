@@ -6,7 +6,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
-import Calendar from 'moedim';
+
+import DatePicker from 'sassy-datepicker';
 
 import DoctorTicketsCards from '../Components/DoctorTicketsCards';
 
@@ -14,9 +15,11 @@ function DoctorScheduleComponent() {
     const username = window.location.href.split("=")[1];
 
     const [date, setDate] = useState(new Date());
+    const [dateString, setDateString] = useState("");
     
     function TicketsCardsComponent() {
-        return(<DoctorTicketsCards username={username} date={date}/>);
+        setDateString(date.toLocaleDateString('zh-Hans-CN'));
+        return(<DoctorTicketsCards username={username} date={dateString}/>);
      }
     
     return (
@@ -26,7 +29,7 @@ function DoctorScheduleComponent() {
                     <TicketsCardsComponent/> 
                 </div>
                 <div className='col-md-3'>
-                    <Calendar value={date} onChange={(d) => setDate(d)} />
+                    <DatePicker value={date} onChange={(d) => {setDate(d)}} />
                 </div>
             </div>
         </div>
