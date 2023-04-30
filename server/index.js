@@ -176,12 +176,14 @@ app.post('/reserveTicket', (req, res) => {
    const time = req.body.time;
    const username = req.body.username;
    const free = 'false';
+   const status = 'incomplete';
    
    db.query(
-      "UPDATE tickets SET free=?, user=? WHERE doctor=? AND date=? AND time=?",
-     [free, username, doctor, date, time],
+      "UPDATE tickets SET free=?, status=?, user=? WHERE doctor=? AND date=? AND time=?",
+     [free, status, username, doctor, date, time],
      function(err, result) {
         if (err) {
+            console.log(JSON.stringify(err));
            res.send({err: err});
         }
        
@@ -192,7 +194,6 @@ app.post('/reserveTicket', (req, res) => {
 
 app.post('/outputTickets', (req, res) => {
    const username = req.body.username;
-   console.log('usname= '+username);
    
    db.query(
       "SELECT idtickets, date, time, doctor, "+
@@ -217,11 +218,11 @@ app.post('/deleteUsersTicket', (req, res) => {
    const idtickets = req.body.idtickets;
    const free = 'true';
    const user = '';
-   console.log('idtickets= '+idtickets);
+   const status = null;
    
    db.query(
-      "UPDATE tickets SET free=?, user=? WHERE idtickets=?",
-     [free, user, idtickets],
+      "UPDATE tickets SET free=?, status=?, user=? WHERE idtickets=?",
+     [free, status, user, idtickets],
      function(err, result) {
         if (err) {
            res.send({err: err});
@@ -238,6 +239,7 @@ app.post('/doctorOutputTickets', (req, res) => {
     const username = req.body.username;
     const date = req.body.date.slice(0, 10);
     const free = 'false';
+    const status = 'incomplete';
     
     db.query(
        "SELECT idtickets, time, user, doctor, "+
@@ -251,8 +253,8 @@ app.post('/doctorOutputTickets', (req, res) => {
        "(SELECT phone FROM patient WHERE username=user) AS patientPhone "+
        "FROM tickets "+
        "INNER JOIN doctor ON doctor.iddoctor = tickets.doctor "+
-       "WHERE doctor.username = ? AND tickets.date = ? AND tickets.free = ?",
-      [username, date, free],
+       "WHERE doctor.username = ? AND tickets.date = ? AND tickets.free = ? AND tickets.status = ?",
+      [username, date, free, status],
       function(err, result) {
          if (err) {
             res.send({err: err});
@@ -288,14 +290,30 @@ app.post('/doctorOutputTickets', (req, res) => {
     const conclusion = req.body.conclusion;
     const currentDate = new Date().toISOString().slice(0, 10);
     
-    // if(complaints == null || conclusion == null) res.send({err: err});
-    
     db.execute(
         "INSERT INTO electronic_card (patientid, doctorid, date, complaints, conclusion) VALUES (?,?,?,?,?)",
       [idpatient, iddoctor, currentDate, complaints, conclusion],
       (err, result)=> {
          if (err) {
             console.log('err section');
+            res.send({err: err});
+         }
+        
+         res.send(result);
+      }
+    );
+ });
+
+
+ app.post('/doctorCompleteTicket', (req, res) => {
+    const idticket = req.body.idticket;
+    const status = 'completed';
+    
+    db.query(
+       "UPDATE tickets SET status=? WHERE idtickets=?",
+      [status, idticket],
+      function(err, result) {
+         if (err) {
             res.send({err: err});
          }
         

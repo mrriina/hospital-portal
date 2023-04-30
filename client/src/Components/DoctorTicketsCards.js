@@ -23,30 +23,16 @@ class DoctorTicketsCards extends React.Component {
     }
 
 
-    componentDidMount() {
-        Axios.post("http://localhost:3001/doctorOutputTickets", {
-                username: this.username,
-                date: this.date,
-            }).then((response) => {
-                this.setState({
-                    tickets: response.data.map(item => {
-                      return (
-                        <div class="col mb-3">
-                        <Card style={{ width: '16rem' }} className='indent' onDoubleClick={() => this.handleShow(item)}>
-                            <Card.Body>
-                                <div class="card-header text-uppercase">TIME: {item.time}</div>
-                                <Card.Text>
-                                    <tr>Patient: {item.patientSurname} {item.patientName} {item.patientPatronymic}</tr>
-                                </Card.Text>
-                                <Button variant="btn btn-success" onClick={(e)=> {this.deleteTicket(item.idtickets)}}>Completed</Button>
-                            </Card.Body>
-                        </Card>
-                        </div>
-                      );
-                    })
-                  });
-            });
+      completeTicket = (idticket) => {
+        Axios.post("http://localhost:3001/doctorCompleteTicket", {
+                idticket: idticket,
+                }).then((response) => {
+                    this.componentDidMount();
+                }).catch(error => {
+                    this.errorToast();
+                });
       }
+
 
       handleShow = (item) => {
         this.setState({
@@ -96,19 +82,21 @@ class DoctorTicketsCards extends React.Component {
                       this.handleClose();
 
                 }).catch(error => {
-                    toast.error("Error! Something went wrong!", {
-                        position: toast.POSITION.TOP_CENTER,
-                        autoClose: 2000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: false,
-                        draggable: true,
-                        progress: undefined,
-                      });
+                    this.errorToast();
                 });
-        }
+        }       
+      }
 
-                
+      errorToast = () => {
+        toast.error("Error! Something went wrong!", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          });
       }
 
       additionPatientToDatabase = (idpatient, iddoctor) => {
@@ -146,6 +134,33 @@ class DoctorTicketsCards extends React.Component {
         });
       };
     
+
+      componentDidMount() {
+        Axios.post("http://localhost:3001/doctorOutputTickets", {
+                username: this.username,
+                date: this.date,
+            }).then((response) => {
+                this.setState({
+                    tickets: response.data.map(item => {
+                      return (
+                        <div class="col mb-3">
+                        <Card style={{ width: '16rem' }} className='indent' onDoubleClick={() => this.handleShow(item)}>
+                            <Card.Body>
+                                <div class="card-header text-uppercase">TIME: {item.time}</div>
+                                <Card.Text>
+                                    <tr>Patient: {item.patientSurname} {item.patientName} {item.patientPatronymic}</tr>
+                                </Card.Text>
+                                <Button variant="btn btn-success" onClick={(e)=> {this.completeTicket(item.idtickets)}}>Completed</Button>
+                            </Card.Body>
+                        </Card>
+                        </div>
+                      );
+                    })
+                  });
+            });
+      }
+
+
     render() {
         if (!this.state.tickets) {
             return null;
