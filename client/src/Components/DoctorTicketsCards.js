@@ -17,11 +17,11 @@ class DoctorTicketsCards extends React.Component {
         
         this.state = {
             tickets: null,
-            complaints: '',
-            conclusion: ''
+            complaints: null,
+            conclusion: null
         };    
     }
-      
+
 
     componentDidMount() {
         Axios.post("http://localhost:3001/doctorOutputTickets", {
@@ -60,8 +60,56 @@ class DoctorTicketsCards extends React.Component {
             show: false,
             selectedTicket: null
         });
+        this.state.complaints = null;
+        this.state.conclusion = null;
       }
 
+
+      makeRecordHandler = (idpatient, iddoctor) => {
+        if(this.state.complaints == null || this.state.complaints == '' || this.state.conclusion == null || this.state.conclusion == '') {
+            toast.error("Fill in all the fields!", {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+              });
+        } else {
+            Axios.post("http://localhost:3001/doctorInsertRecordToElectronicCard", {
+                idpatient: idpatient,
+                iddoctor: iddoctor,
+                complaints: this.state.complaints,
+                conclusion: this.state.conclusion,
+                }).then((response) => {
+                    toast.success("The recording was successfully made!", {
+                        position: toast.POSITION.TOP_CENTER,
+                        autoClose: 2000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: true,
+                        progress: undefined,
+                      });
+
+                      this.handleClose();
+
+                }).catch(error => {
+                    toast.error("Error! Something went wrong!", {
+                        position: toast.POSITION.TOP_CENTER,
+                        autoClose: 2000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                });
+        }
+
+                
+      }
 
       additionPatientToDatabase = (idpatient, iddoctor) => {
         Axios.post("http://localhost:3001/doctorAddPatientToDatabase", {
@@ -135,7 +183,7 @@ class DoctorTicketsCards extends React.Component {
                                     className="position-relative" />
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button variant="secondary" onClick={this.handleClose}>Make a record</Button>
+                            <Button variant="secondary" onClick={(e) => {this.makeRecordHandler(this.state.selectedTicket && this.state.selectedTicket.patientId, this.state.selectedTicket && this.state.selectedTicket.doctor)}}>Make a record</Button>
                             <Button variant="secondary" onClick={this.handleClose}>Close</Button>
                         </Modal.Footer>
                     </Modal>

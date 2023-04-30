@@ -238,8 +238,6 @@ app.post('/doctorOutputTickets', (req, res) => {
     const username = req.body.username;
     const date = req.body.date.slice(0, 10);
     const free = 'false';
-    console.log('d usname= '+username);
-    console.log('date= '+date);
     
     db.query(
        "SELECT idtickets, time, user, doctor, "+
@@ -268,14 +266,36 @@ app.post('/doctorOutputTickets', (req, res) => {
  app.post('/doctorAddPatientToDatabase', (req, res) => {
     const idpatient = req.body.idpatient;
     const iddoctor = req.body.iddoctor;
-    console.log('idpatient= '+idpatient);
-    console.log('iddoctor= '+iddoctor);
     
     db.execute(
         "INSERT INTO patient_accounting (patientid, doctorid) VALUES (?,?)",
       [idpatient, iddoctor],
       (err, result)=> {
          if (err) {
+            res.send({err: err});
+         }
+        
+         res.send(result);
+      }
+    );
+ });
+
+
+ app.post('/doctorInsertRecordToElectronicCard', (req, res) => {
+    const idpatient = req.body.idpatient;
+    const iddoctor = req.body.iddoctor;
+    const complaints = req.body.complaints;
+    const conclusion = req.body.conclusion;
+    const currentDate = new Date().toISOString().slice(0, 10);
+    
+    // if(complaints == null || conclusion == null) res.send({err: err});
+    
+    db.execute(
+        "INSERT INTO electronic_card (patientid, doctorid, date, complaints, conclusion) VALUES (?,?,?,?,?)",
+      [idpatient, iddoctor, currentDate, complaints, conclusion],
+      (err, result)=> {
+         if (err) {
+            console.log('err section');
             res.send({err: err});
          }
         
