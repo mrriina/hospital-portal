@@ -9,6 +9,7 @@ class TicketsCards extends React.Component {
     constructor(props) {
         super();
         this.username = props.username;
+        this.actualTickets = props.actualTickets;
         
         this.state = {
             tickets: null
@@ -26,6 +27,7 @@ class TicketsCards extends React.Component {
     componentDidMount() {
         Axios.post("http://localhost:3001/outputTickets", {
                 username: this.username,
+                actualTickets: this.actualTickets,
             }).then((response) => {
                 this.setState({
                     tickets: response.data.map(item => {

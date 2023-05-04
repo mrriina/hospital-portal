@@ -34,6 +34,8 @@ function Tickets() {
     const handleCloseTime = () => setShowTime(false);
     const handleShowTime = () => setShowTime(true);
 
+    const [actualTickets, setActualTickets] = useState();
+
     const reserveTicketHandler = () => {
         Axios.post("http://localhost:3001/reserveTicket", {
             doctor: chosenDoc,
@@ -47,13 +49,20 @@ function Tickets() {
      };
 
      function Test() {
-        return(<TicketsCards username={username}/>);
+        console.log('actualTickets='+actualTickets);
+        return(<TicketsCards username={username} actualTickets={actualTickets}/>);
      }
 
     return (
             <div>
                 <div>
                   <Button variant="btn btn-outline-secondary" onClick={handleShow} size="lg">New ticket</Button>
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="checkbox" onClick={(e)=>{setActualTickets(e.target.checked); Test();}} defaultChecked />
+                    <label class="form-check-label" for="flexCheckChecked">
+                        Only actual
+                    </label>
+                </div>
                </div>
                <div className='indent'>
                     <Test/>

@@ -194,24 +194,46 @@ app.post('/reserveTicket', (req, res) => {
 
 app.post('/outputTickets', (req, res) => {
    const username = req.body.username;
-   
-   db.query(
-      "SELECT idtickets, date, time, doctor, "+
-      "(SELECT speciality FROM doctor WHERE iddoctor=doctor) AS doctorSpeciality, "+
-      "(SELECT name FROM doctor WHERE iddoctor=doctor) AS doctorName, "+
-      "(SELECT surname FROM doctor WHERE iddoctor=doctor) AS doctorSurname, "+
-      "(SELECT patronymic FROM doctor WHERE iddoctor=doctor) AS doctorPatronymic, "+
-      "(SELECT cabinet FROM doctor WHERE iddoctor=doctor) AS doctorCabinet "+
-      "FROM tickets WHERE user = ?",
-     [username],
-     function(err, result) {
-        if (err) {
-           res.send({err: err});
+   const actualTickets = req.body.actualTickets;
+   console.log('actualTickets=='+actualTickets);
+
+   if(actualTickets == true || actualTickets == undefined) {
+      db.query(
+         "SELECT idtickets, date, time, doctor, "+
+         "(SELECT speciality FROM doctor WHERE iddoctor=doctor) AS doctorSpeciality, "+
+         "(SELECT name FROM doctor WHERE iddoctor=doctor) AS doctorName, "+
+         "(SELECT surname FROM doctor WHERE iddoctor=doctor) AS doctorSurname, "+
+         "(SELECT patronymic FROM doctor WHERE iddoctor=doctor) AS doctorPatronymic, "+
+         "(SELECT cabinet FROM doctor WHERE iddoctor=doctor) AS doctorCabinet "+
+         "FROM tickets WHERE user = ? AND date >= CURDATE()",
+        [username],
+        function(err, result) {
+           if (err) {
+              res.send({err: err});
+           }
+          
+           res.send(result);
         }
-       
-        res.send(result);
-     }
-   );
+      );
+   } else {
+      db.query(
+         "SELECT idtickets, date, time, doctor, "+
+         "(SELECT speciality FROM doctor WHERE iddoctor=doctor) AS doctorSpeciality, "+
+         "(SELECT name FROM doctor WHERE iddoctor=doctor) AS doctorName, "+
+         "(SELECT surname FROM doctor WHERE iddoctor=doctor) AS doctorSurname, "+
+         "(SELECT patronymic FROM doctor WHERE iddoctor=doctor) AS doctorPatronymic, "+
+         "(SELECT cabinet FROM doctor WHERE iddoctor=doctor) AS doctorCabinet "+
+         "FROM tickets WHERE user = ?",
+        [username],
+        function(err, result) {
+           if (err) {
+              res.send({err: err});
+           }
+          
+           res.send(result);
+        }
+      );
+   }
 });
 
 app.post('/deleteUsersTicket', (req, res) => {
