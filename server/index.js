@@ -340,6 +340,43 @@ app.post('/doctorOutputTickets', (req, res) => {
  });
 
 
+ app.post('/doctorGetPatientAccounting', (req, res) => {
+   const doctorusername = req.body.iddoctor;
+   
+   db.execute(
+       "SELECT patient_accounting.id, patient.name, patient.surname, patient.patronymic, patient.age, patient.sex, patient.address, patient.phone " + 
+       "FROM patient_accounting "+
+       "JOIN patient ON patient_accounting.patientid = patient.idpatient "+
+       "JOIN doctor ON patient_accounting.doctorid = doctor.iddoctor AND doctor.username=?",
+       [doctorusername],
+       (err, result)=> {
+           if (err) {
+               res.send({err: err});
+           }
+           
+           res.send(result);
+       }
+   );
+});
+
+
+app.post('/doctorDeletePatientAccounting', (req, res) => {
+   const idaccounting = req.body.idaccounting;
+
+   db.execute(
+       "DELETE FROM patient_accounting WHERE id=?",
+       [idaccounting],
+       (err, result)=> {
+           if (err) {
+               res.send({err: err});
+           }
+           
+           res.send(result);
+       }
+   );
+});
+
+
 //----------------------------------- admin home ------------------------------------------
 
 app.post('/getPatientsAdminHome', (req, res) => {

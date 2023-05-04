@@ -3,6 +3,7 @@ import '../Home.css';
 
 import Patient from "../Pages/Patient";
 import Tickets from '../Pages/Tickets';
+import PatientElectronicCard from "../Components/PatientElectronicCard";
 
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -40,8 +41,9 @@ function PatientHome() {
             </Nav>
          </Navbar>
          <div className="body">
-            <SetPatientComponent />
-            <SetTicketsComponent />
+            {/* <SetPatientComponent /> */}
+            {/* <SetTicketsComponent /> */}
+            <PatientElectronicCard/>
          </div>
       </>
    );

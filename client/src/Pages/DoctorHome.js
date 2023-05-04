@@ -7,8 +7,10 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import {Image} from 'react-bootstrap';
 
 import DoctorScheduleComponent from '../Components/DoctorScheduleComponent';
+import DoctorPatientAccountingComponent from '../Components/DoctorPatientAccountingComponent';
  
 function DoctorHome() {
+   const iddoctor = window.location.href.split("=")[1];
    const [myProfileComponentStatus, setMyProfileComponentStatus] = useState("");
    const [scheduleComponentStatus, setScheduleComponentStatus] = useState("");
    const [patientAccountingComponentStatus, setPatientAccountingComponentStatus] = useState("");
@@ -61,7 +63,8 @@ function DoctorHome() {
             </Nav>  
          </Navbar>
          <div className="body">
-            <DoctorScheduleComponent />
+            {/* <DoctorScheduleComponent /> */}
+            <DoctorPatientAccountingComponent iddoctor={iddoctor} />
          </div>
       </>
    );
