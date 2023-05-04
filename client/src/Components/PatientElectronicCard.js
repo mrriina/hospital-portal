@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Axios from 'axios';
 
 import '../App.css';
+import FlipPage, { Page } from "react-pageflip";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/esm/Button';
 import { Container, Row, Col} from 'react-bootstrap';
@@ -12,7 +13,8 @@ class PatientElectronicCard extends React.Component {
         this.username = props.username;
         
         this.state = {
-            tickets: null
+            cards: [],
+            currentCard: 1,
         };    
     }
 
@@ -25,84 +27,64 @@ class PatientElectronicCard extends React.Component {
     //  };    
 
     componentDidMount() {
-        Axios.post("http://localhost:3001/outputTickets", {
-                username: this.username,
-            }).then((response) => {
-                this.setState({
-                    tickets: response.data.map(item => {
-                      return (
-                        <div class="col">
-                        <Card style={{ width: '18rem' }} className='indent'>
-                            <Card.Body>
-                                <div class="card-header text-uppercase">{item.doctorSpeciality}</div>
-                                <Card.Text>
-                                    <tr>Date: {item.date}</tr>
-                                    <tr>Speciality: {item.doctorName}</tr>
-                                    <tr>Doctor: {item.doctorName} {item.doctorSurname} {item.doctorPatronymic}</tr>
-                                    <tr>Complaints: {item.time}</tr>
-                                    <tr>Conclusion: {item.doctorCabinet}</tr>
-                                </Card.Text>
-                                <Button variant="btn btn-danger" onClick={(e)=> {this.deleteTicket(item.idtickets)}}>Delete</Button>
-                            </Card.Body>
-                        </Card>
-                        </div>
-                      );
-                    })
-                  });
-            });
+        Axios.post("http://localhost:3001/patientGetElectronicCards", {
+          username: this.username
+        }).then((response) => {
+          this.setState({
+            cards: response.data.map((item) => {
+              return (
+                <div className="col">
+                  <Card className="Card">
+                    <Card.Body>
+                      <div className="card-header text-uppercase">
+                        {item.doctorSpeciality}
+                      </div>
+                      <Card.Text>
+                        <p><strong>Date:</strong> {item.date}</p>
+                        <p><strong>Doctor:</strong> {item.doctorSurname} {item.doctorName} {item.doctorPatronymic}</p>
+                        <p><strong>Complaints:</strong> {item.complaints}</p>
+                        <p><strong>Conclusion:</strong> {item.conclusion}</p>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </div>
+              );
+            })
+          });
+        });
       }
     
-    render() {
-        if (!this.state.tickets) {
-            return null;
-          } else {
-            return (
-                <div className='row row-cols-1 row-cols-md-4 g-4'>
-                    {this.state.tickets}
-                </div>
-            );
-          }
-    }
+      handlePrevClick = () => {
+        if (this.state.currentCard > 1) {
+          this.setState({ currentCard: this.state.currentCard - 1 });
+        }
+      };
+    
+      handleNextClick = () => {
+        if (this.state.currentCard < this.state.cards.length) {
+          this.setState({ currentCard: this.state.currentCard + 1 });
+        }
+      };
+    
+      render() {
+        const { cards, currentCard } = this.state;
+        const numCards = cards.length;
+    
+        if (!cards.length) {
+          return null;
+        }
+    
+        return (
+          <div className="CardContainer">
+            {cards[currentCard - 1]}
+            <div>
+                <button type="button" class="btn btn-outline-secondary" onClick={this.handlePrevClick}>Previous</button>
+                <label className='elCardPageDisplay'>page {currentCard} of {numCards}</label>
+                <button type="button" class="btn btn-outline-secondary" onClick={this.handleNextClick}>Next</button>
+            </div>
+          </div>
+        );
+      }
 }
-  
-  
-  
-//     const [page, setPage] = useState(1);
-
-//   function nextPage() {
-//     setPage(2);
-//   }
-
-//   function prevPage() {
-//     setPage(1);
-//   }
-
-//   return (
-//     <Container>
-//       <Row>
-//         <Col>
-//           <h1>Book Title</h1>
-//         </Col>
-//       </Row>
-//       <Row>
-//         <Col>
-//           <div className={`page page-${page}`}>
-//             <h2>Page {page}</h2>
-//             <p>Page content goes here</p>
-//           </div>
-//         </Col>
-//       </Row>
-//       <Row>
-//         <Col>
-//           {page === 1 ? (
-//             <Button onClick={nextPage}>Next Page</Button>
-//           ) : (
-//             <Button onClick={prevPage}>Previous Page</Button>
-//           )}
-//         </Col>
-//       </Row>
-//     </Container>
-//   );
-// }
 
 export default PatientElectronicCard;

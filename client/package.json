@@ -13,6 +13,8 @@
     "react-async": "^10.0.1",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
+    "react-flip-page": "^1.6.4",
+    "react-pageflip": "^2.0.3",
     "react-responsive-modal": "^6.2.0",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",

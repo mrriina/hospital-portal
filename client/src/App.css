@@ -27,3 +27,17 @@
 .indent {
   margin-top: 1%;
 }
+
+.CardContainer {
+  width: 80%;
+  margin: auto;
+}
+.Card {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.elCardPageDisplay {
+  margin-left: 40%;
+  margin-right: 40%;
+}

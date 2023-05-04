@@ -233,6 +233,30 @@ app.post('/deleteUsersTicket', (req, res) => {
    );
 });
 
+
+app.post('/patientGetElectronicCards', (req, res) => {
+   const patientusername = req.body.username;
+   
+   db.execute(
+      "SELECT electronic_card.date, electronic_card.complaints, electronic_card.conclusion, electronic_card.doctorid, " + 
+      "(SELECT speciality FROM doctor WHERE iddoctor=electronic_card.doctorid) AS doctorSpeciality, "+
+      "(SELECT name FROM doctor WHERE iddoctor=electronic_card.doctorid) AS doctorName, "+
+      "(SELECT surname FROM doctor WHERE iddoctor=electronic_card.doctorid) AS doctorSurname, "+
+      "(SELECT patronymic FROM doctor WHERE iddoctor=electronic_card.doctorid) AS doctorPatronymic "+
+      "FROM electronic_card "+
+      "JOIN patient ON electronic_card.patientid = patient.idpatient AND patient.username=?",
+      [patientusername],
+      (err, result)=> {
+          if (err) {
+              res.send({err: err});
+          }
+          
+          res.send(result);
+      }
+  );
+});
+
+
 //----------------------------------- doctor home ------------------------------------------
 
 app.post('/doctorOutputTickets', (req, res) => {

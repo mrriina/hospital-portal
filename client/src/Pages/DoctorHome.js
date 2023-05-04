@@ -63,8 +63,8 @@ function DoctorHome() {
             </Nav>  
          </Navbar>
          <div className="body">
-            {/* <DoctorScheduleComponent /> */}
-            <DoctorPatientAccountingComponent iddoctor={iddoctor} />
+            <DoctorScheduleComponent />
+            {/* <DoctorPatientAccountingComponent iddoctor={iddoctor} /> */}
          </div>
       </>
    );

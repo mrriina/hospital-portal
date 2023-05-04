@@ -41,9 +41,9 @@ function PatientHome() {
             </Nav>
          </Navbar>
          <div className="body">
-            {/* <SetPatientComponent /> */}
-            {/* <SetTicketsComponent /> */}
-            <PatientElectronicCard/>
+            <SetPatientComponent />
+            <SetTicketsComponent />
+            {/* <PatientElectronicCard  username={username}/> */}
          </div>
       </>
    );
