@@ -41,3 +41,29 @@
   margin-left: 40%;
   margin-right: 40%;
 }
+
+@media print {
+  .card-header {
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-text tr {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-text tr:first-child {
+    margin-top: 0.5rem;
+  }
+  
+  .card-text tr:last-child {
+    margin-bottom: 0;
+  }
+  
+  .btn {
+    display: none;
+  }
+}

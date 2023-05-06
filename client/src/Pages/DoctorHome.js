@@ -10,7 +10,7 @@ import DoctorScheduleComponent from '../Components/DoctorScheduleComponent';
 import DoctorPatientAccountingComponent from '../Components/DoctorPatientAccountingComponent';
  
 function DoctorHome() {
-   const iddoctor = window.location.href.split("=")[1];
+   const doctorusername = window.location.href.split("=")[1];
    const [myProfileComponentStatus, setMyProfileComponentStatus] = useState("");
    const [scheduleComponentStatus, setScheduleComponentStatus] = useState("");
    const [patientAccountingComponentStatus, setPatientAccountingComponentStatus] = useState("");
@@ -27,11 +27,11 @@ function DoctorHome() {
       }
     }
 
-   //  function SetPatientAccountingComponent() {
-   //      if (patientAccountingComponentStatus) {
-   //        return <AdminTickets />;
-   //      }
-   //    }
+    function SetPatientAccountingComponent() {
+        if (patientAccountingComponentStatus) {
+          return <DoctorPatientAccountingComponent doctorusername={doctorusername} />;
+        }
+      }
 
    
 
@@ -43,7 +43,7 @@ function DoctorHome() {
                   <span>Hospital</span>
                </a>
             </Navbar.Brand>
-            <Nav>
+            <Nav id="navprofile">
             {/* className="nav-content" */}
                {/* <Nav.Link onClick={()=>{setPatientStatus(true); setDoctorsStatus(false); setTicketsStatus(false);}}>Patients</Nav.Link>
                <Nav.Link onClick={()=>{setPatientStatus(false); setDoctorsStatus(true); setTicketsStatus(false);}}>Doctors</Nav.Link>
@@ -52,19 +52,21 @@ function DoctorHome() {
                <Image src='https://e7.pngegg.com/pngimages/84/165/png-clipart-united-states-avatar-organization-information-user-avatar-service-computer-wallpaper-thumbnail.png'
                             rounded
                             height='30'
-                            className="mr-2"></Image>
-                {/* <h1 className="fs-5 logoNavText">Profile</h1> */}
-                <NavDropdown
-                    id="nav-dropdown-dark-example"
-                    title="Profile"
-                    menuVariant="dark"
-                    ></NavDropdown>
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                            className="mt-2"></Image>
+               <NavDropdown
+                    title={doctorusername}
+                    menuVariant="dark">
+                  <NavDropdown.Item href="#action/3.1">My profile</NavDropdown.Item>
+                  <NavDropdown.Item onClick={()=>{setScheduleComponentStatus(true); setPatientAccountingComponentStatus(false);}}>Schedule</NavDropdown.Item>
+                  <NavDropdown.Item onClick={()=>{setScheduleComponentStatus(false); setPatientAccountingComponentStatus(true);}}>Patients Accounting</NavDropdown.Item>
+                  <NavDropdown.Item onClick={()=>{window.location.assign('http://localhost:3000/');}}>Logout</NavDropdown.Item>
+               </NavDropdown>
+               <div className="mr-4"></div>
             </Nav>  
          </Navbar>
          <div className="body">
-            <DoctorScheduleComponent />
-            {/* <DoctorPatientAccountingComponent iddoctor={iddoctor} /> */}
+            <SetScheduleComponent />
+            <SetPatientAccountingComponent />
          </div>
       </>
    );

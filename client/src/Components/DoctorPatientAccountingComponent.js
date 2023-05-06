@@ -10,8 +10,7 @@ import 'react-responsive-modal/styles.css';
 class DoctorPatientAccountingComponent extends React.Component {
     constructor(props) {
         super();
-        this.iddoctor = props.iddoctor;
-        console.log('iddoctor=='+this.iddoctor);
+        this.doctorusername = props.doctorusername;
         
         this.state = {
             patients: null
@@ -29,7 +28,7 @@ class DoctorPatientAccountingComponent extends React.Component {
 
     componentDidMount() {
         Axios.post("http://localhost:3001/doctorGetPatientAccounting", {
-                iddoctor: this.iddoctor,
+                iddoctor: this.doctorusername,
             }).then((response) => {
                 this.setState({
                     patients: response.data.map(item => {

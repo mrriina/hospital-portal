@@ -49,3 +49,7 @@ nav a {
     flex-wrap: nowrap;
     justify-content: space-between;
 }
+
+#navprofile {
+    margin-right: 8%;
+}

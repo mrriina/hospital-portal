@@ -10,6 +10,8 @@ import PatientStart from "./Pages/PatientStart";
 import PatientHome from './Pages/PatientHome';
 import AdminHome from './Pages/AdminHome';
 import DoctorHome from './Pages/DoctorHome';
+import DoctorScheduleComponent from './Components/DoctorScheduleComponent';
+import DoctorPatientAccountingComponent from './Components/DoctorPatientAccountingComponent';
  
 ReactDOM.render(
    <React.StrictMode>
