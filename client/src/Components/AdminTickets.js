@@ -18,7 +18,8 @@ class AdminTickets extends React.Component {
             tickets: null,
             data: null,
             openModal: false,
-            openModalNewTicket: false
+            openModalNewTicket: false,
+            actualTickets: true
         };   
         
         this.filterCategory = 'all';
@@ -74,6 +75,7 @@ class AdminTickets extends React.Component {
                     <td>{item.doctorSurname} {item.doctorName} {item.doctorPatronymic}</td>
                     <td>{item.user}</td>
                     <td>{item.free}</td>
+                    <td>{item.status}</td>
                     <Button variant="btn btn-outline-danger" onClick={(e)=> {this.deleteTicket(item.idtickets)}}>Delete</Button>
                 </tr>
               );
@@ -83,6 +85,7 @@ class AdminTickets extends React.Component {
 
     componentDidMount() {
         Axios.post("http://localhost:3001/getTicketsAdminHome", {
+            actualTickets: this.state.actualTickets,
             }).then((response) => {
                 this.setState({
                     data: response.data
@@ -93,11 +96,12 @@ class AdminTickets extends React.Component {
                           return (
                             <tr>
                                 <th scope="row">{item.idtickets}</th>
-                                <td>{item.date}</td>
+                                <td>{item.date.toString().slice(0, 10)}</td>
                                 <td>{item.time}</td>
                                 <td>{item.doctorSurname} {item.doctorName} {item.doctorPatronymic}</td>
                                 <td>{item.user}</td>
                                 <td>{item.free}</td>
+                                <td>{item.status}</td>
                                 <Button variant="btn btn-outline-danger" onClick={(e)=> {this.deleteTicket(item.idtickets)}}>Delete</Button>
                             </tr>
                           );
@@ -111,11 +115,12 @@ class AdminTickets extends React.Component {
                                 return (
                                     <tr>
                                         <th scope="row">{item.idtickets}</th>
-                                        <td>{item.date}</td>
+                                        <td>{item.date.toString().slice(0, 10)}</td>
                                         <td>{item.time}</td>
                                         <td>{item.doctorSurname} {item.doctorName} {item.doctorPatronymic}</td>
                                         <td>{item.user}</td>
                                         <td>{item.free}</td>
+                                        <td>{item.status}</td>
                                         <Button variant="btn btn-outline-danger" onClick={(e)=> {this.deleteTicket(item.idtickets)}}>Delete</Button>
                                     </tr>
                                   );
@@ -133,6 +138,12 @@ class AdminTickets extends React.Component {
             return (
                 <div>
                     <Button variant="btn btn-outline-secondary" onClick={(e)=> {this.newTicketModal()}}>New Ticket</Button>
+                    <div class="form-check mt-3">
+                        <input class="form-check-input" type="checkbox" onClick={(e)=>{this.state.actualTickets = e.target.checked; this.componentDidMount();}} defaultChecked />
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Only actual
+                        </label>
+                    </div>
 
                     <DropdownButton title="Filter" variant="secondary" style={{float: 'right'}} onSelect={(eventKey)=>{this.filterCategory = eventKey; this.componentDidMount();}}>
                         <Dropdown.Item eventKey="all">all</Dropdown.Item>
@@ -154,6 +165,7 @@ class AdminTickets extends React.Component {
                                 <th scope="col">Doctor</th>
                                 <th scope="col">Patient</th>
                                 <th scope="col" onClick={this.sortFreeColumn} style={{cursor: 'pointer'}}>Free</th>
+                                <th scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>{this.state.tickets}</tbody>

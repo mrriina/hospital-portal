@@ -199,7 +199,7 @@ app.post('/outputTickets', (req, res) => {
 
    if(actualTickets == true || actualTickets == undefined) {
       db.query(
-         "SELECT idtickets, date, time, doctor, "+
+         "SELECT idtickets, DATE_ADD(date, INTERVAL 1 DAY) AS date, time, doctor, "+
          "(SELECT speciality FROM doctor WHERE iddoctor=doctor) AS doctorSpeciality, "+
          "(SELECT name FROM doctor WHERE iddoctor=doctor) AS doctorName, "+
          "(SELECT surname FROM doctor WHERE iddoctor=doctor) AS doctorSurname, "+
@@ -217,7 +217,7 @@ app.post('/outputTickets', (req, res) => {
       );
    } else {
       db.query(
-         "SELECT idtickets, date, time, doctor, "+
+         "SELECT idtickets, DATE_ADD(date, INTERVAL 1 DAY) AS date, time, doctor, "+
          "(SELECT speciality FROM doctor WHERE iddoctor=doctor) AS doctorSpeciality, "+
          "(SELECT name FROM doctor WHERE iddoctor=doctor) AS doctorName, "+
          "(SELECT surname FROM doctor WHERE iddoctor=doctor) AS doctorSurname, "+
@@ -597,17 +597,42 @@ app.post('/newDoctor', (req, res) => {
 
 
 app.post('/getTicketsAdminHome', (req, res) => {
+   const actualTickets = req.body.actualTickets;
    
-   db.execute(
-       "SELECT idtickets, date, time, free, user, doctor, (SELECT name FROM doctor WHERE iddoctor = doctor) AS doctorName, (SELECT surname FROM doctor WHERE iddoctor = doctor) AS doctorSurname, (SELECT patronymic FROM doctor WHERE iddoctor = doctor) AS doctorPatronymic, (SELECT speciality FROM doctor WHERE iddoctor = doctor) AS doctorSpeciality FROM tickets",
-       (err, result)=> {
-           if (err) {
-               res.send({err: err});
-           }
-           
-           res.send(result);
-       }
-   );
+   if(actualTickets == true || actualTickets == undefined) {
+      db.execute(
+         "SELECT idtickets, DATE_ADD(date, INTERVAL 1 DAY) AS date, time, free, user, doctor, status, "+
+         "(SELECT name FROM doctor WHERE iddoctor = doctor) AS doctorName, "+
+         "(SELECT surname FROM doctor WHERE iddoctor = doctor) AS doctorSurname, "+
+         "(SELECT patronymic FROM doctor WHERE iddoctor = doctor) AS doctorPatronymic, "+
+         "(SELECT speciality FROM doctor WHERE iddoctor = doctor) AS doctorSpeciality "+
+         "FROM tickets "+
+         "WHERE date >= CURDATE()",
+         (err, result)=> {
+            if (err) {
+                  res.send({err: err});
+            }
+            console.log('result: '+ JSON.stringify(result));
+            res.send(result);
+         }
+      );
+   } else {
+      db.execute(
+         "SELECT idtickets, DATE_ADD(date, INTERVAL 1 DAY) AS date, time, free, user, doctor, status, "+
+         "(SELECT name FROM doctor WHERE iddoctor = doctor) AS doctorName, "+
+         "(SELECT surname FROM doctor WHERE iddoctor = doctor) AS doctorSurname, "+
+         "(SELECT patronymic FROM doctor WHERE iddoctor = doctor) AS doctorPatronymic, "+
+         "(SELECT speciality FROM doctor WHERE iddoctor = doctor) AS doctorSpeciality "+
+         "FROM tickets",
+         (err, result)=> {
+            if (err) {
+                  res.send({err: err});
+            }
+            
+            res.send(result);
+         }
+      );
+   }
 });
 
 app.post('/deleteTicketAdminHome', (req, res) => {

@@ -14,7 +14,7 @@ class PrintCard extends Component {
               <div className="card-header" style={{textTransform: 'uppercase', textDecoration: 'underline', textUnderlineOffset: '5px', textDecorationColor: 'gray', textDecorationThickness: '1px'}}>{doctorSpeciality}</div>
               <Card.Text>
                 <div>Doctor: {doctorName} {doctorSurname} {doctorPatronymic}</div>
-                <div>Date: {date}</div>
+                <div>Date: {date.toString().slice(0,10)}</div>
                 <div>Time: {time}</div>
                 <div>Cabinet: {doctorCabinet}</div>
               </Card.Text>

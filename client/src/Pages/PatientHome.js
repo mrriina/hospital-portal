@@ -14,6 +14,7 @@ function PatientHome() {
    const patientusername = window.location.href.split("=")[1];
    const [patientStatus, setPatientStatus] = useState("");
    const [ticketsStatus, setTicketsStatus] = useState("");
+   const [electronicCardStatus, setElectronicCardStatus] = useState("");
 
    function SetPatientComponent() {
       if (patientStatus) {
@@ -24,6 +25,12 @@ function PatientHome() {
     function SetTicketsComponent() {
       if (ticketsStatus) {
         return <Tickets />;
+      }
+    }
+
+    function SetElectronicCardComponent() {
+      if (electronicCardStatus) {
+        return <PatientElectronicCard username={patientusername} />;
       }
     }
 
@@ -48,8 +55,9 @@ function PatientHome() {
                <NavDropdown
                     title={patientusername}
                     menuVariant="dark">
-                  <NavDropdown.Item onClick={()=>{setPatientStatus(true); setTicketsStatus(false);}}>My profile</NavDropdown.Item>
-                  <NavDropdown.Item onClick={()=>{setPatientStatus(false); setTicketsStatus(true);}}>Tickets</NavDropdown.Item>
+                  <NavDropdown.Item onClick={()=>{setPatientStatus(true); setTicketsStatus(false); setElectronicCardStatus(false);}}>My profile</NavDropdown.Item>
+                  <NavDropdown.Item onClick={()=>{setPatientStatus(false); setTicketsStatus(true); setElectronicCardStatus(false);}}>Tickets</NavDropdown.Item>
+                  <NavDropdown.Item onClick={()=>{setPatientStatus(false); setTicketsStatus(false); setElectronicCardStatus(true);}}>Electronic card</NavDropdown.Item>
                   <NavDropdown.Item onClick={()=>{window.location.assign('http://localhost:3000/');}}>Logout</NavDropdown.Item>
                </NavDropdown>
             </Nav>
@@ -57,7 +65,7 @@ function PatientHome() {
          <div className="body">
             <SetPatientComponent />
             <SetTicketsComponent />
-            {/* <PatientElectronicCard  username={username}/> */}
+            <SetElectronicCardComponent />
          </div>
       </>
    );

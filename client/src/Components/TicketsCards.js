@@ -54,7 +54,7 @@ class TicketsCards extends React.Component {
                                 <div className="card-header text-uppercase">{item.doctorSpeciality}</div>
                                 <Card.Text>
                                     <tr>Doctor: {item.doctorName} {item.doctorSurname} {item.doctorPatronymic}</tr>
-                                    <tr>Date: {item.date}</tr>
+                                    <tr>Date: {item.date.toString().slice(0,10)}</tr>
                                     <tr>Time: {item.time}</tr>
                                     <tr>Cabinet: {item.doctorCabinet}</tr>
                                 </Card.Text>
