@@ -281,6 +281,24 @@ app.post('/patientGetElectronicCards', (req, res) => {
 
 //----------------------------------- doctor home ------------------------------------------
 
+app.post('/doctorGetInfoForMyProfilePage', (req, res) => {
+   const username = req.body.doctorusername;
+   
+   db.query(
+      "SELECT name, surname, patronymic, speciality, cabinet "+
+      "FROM doctor "+
+      "WHERE username = ? "+
+      "LIMIT 1",
+     [username],
+     function(err, result) {
+        if (err) {
+           res.send({err: err});
+        }
+        res.send(result);
+     }
+   );
+});
+
 app.post('/doctorOutputTickets', (req, res) => {
     const username = req.body.username;
     const date = req.body.date;

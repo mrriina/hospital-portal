@@ -6,6 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import {Image} from 'react-bootstrap';
 
+import DoctorMyProfileComponent from '../Components/DoctorMyProfileComponent';
 import DoctorScheduleComponent from '../Components/DoctorScheduleComponent';
 import DoctorPatientAccountingComponent from '../Components/DoctorPatientAccountingComponent';
  
@@ -15,11 +16,11 @@ function DoctorHome() {
    const [scheduleComponentStatus, setScheduleComponentStatus] = useState("true");
    const [patientAccountingComponentStatus, setPatientAccountingComponentStatus] = useState("");
 
-   // function SetMyProfileComponent() {
-   //    if (myProfileComponentStatus) {
-   //      return <AdminPatients />;
-   //    }
-   //  }
+   function SetMyProfileComponent() {
+      if (myProfileComponentStatus) {
+        return <DoctorMyProfileComponent doctorusername={doctorusername} />;
+      }
+    }
 
     function SetScheduleComponent() {
       if (scheduleComponentStatus) {
@@ -51,15 +52,16 @@ function DoctorHome() {
                <NavDropdown
                     title={doctorusername}
                     menuVariant="dark">
-                  <NavDropdown.Item href="#action/3.1">My profile</NavDropdown.Item>
-                  <NavDropdown.Item onClick={()=>{setScheduleComponentStatus(true); setPatientAccountingComponentStatus(false);}}>Schedule</NavDropdown.Item>
-                  <NavDropdown.Item onClick={()=>{setScheduleComponentStatus(false); setPatientAccountingComponentStatus(true);}}>Patients Accounting</NavDropdown.Item>
+                  <NavDropdown.Item onClick={()=>{setMyProfileComponentStatus(true); setScheduleComponentStatus(false); setPatientAccountingComponentStatus(false);}}>My profile</NavDropdown.Item>
+                  <NavDropdown.Item onClick={()=>{setMyProfileComponentStatus(false); setScheduleComponentStatus(true); setPatientAccountingComponentStatus(false);}}>Schedule</NavDropdown.Item>
+                  <NavDropdown.Item onClick={()=>{setMyProfileComponentStatus(false); setScheduleComponentStatus(false); setPatientAccountingComponentStatus(true);}}>Patients Accounting</NavDropdown.Item>
                   <NavDropdown.Item onClick={()=>{window.location.assign('http://localhost:3000/');}}>Logout</NavDropdown.Item>
                </NavDropdown>
                <div className="mr-4"></div>
             </Nav>  
          </Navbar>
          <div className="body">
+            <SetMyProfileComponent />
             <SetScheduleComponent />
             <SetPatientAccountingComponent />
          </div>
