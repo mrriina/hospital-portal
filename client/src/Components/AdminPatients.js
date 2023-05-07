@@ -113,116 +113,117 @@ class AdminPatients extends React.Component {
           } else {
                 return (
                     <div>
-                    <table class="table table-hover">
-                      <thead>
-                          <tr>
-                              <th scope="col">ID</th>
-                              <th scope="col">Name</th>
-                              <th scope="col">Surname</th>
-                              <th scope="col">Patronymic</th>
-                              <th scope="col">Age</th>
-                              <th scope="col">Sex</th>
-                              <th scope="col">Address</th>
-                              <th scope="col">Phone</th>
-                              <th scope="col">Username</th>
-                              <th scope="col">Password</th>
-                          </tr>
-                      </thead>
-                      <tbody>{this.state.patients}</tbody>
-                    </table>
+                        <div className="card-header text-uppercase">Patients:</div>
+                        <table class="table table-hover mt-3">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Surname</th>
+                                <th scope="col">Patronymic</th>
+                                <th scope="col">Age</th>
+                                <th scope="col">Sex</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Password</th>
+                            </tr>
+                        </thead>
+                        <tbody>{this.state.patients}</tbody>
+                        </table>
 
-                    <Modal open={this.state.openModal} onClose={this.onCloseModal}>
-                        <Container id="main-container" className="d-grid h-100">
-                            <Form id="sign-in-form" className="text-center p-3 w-100">
-                                <h1 className="mb-3 fs-3 fw-normal">Edit patient:</h1>
-                                <Form.Group>
-                                    <Form.Control type="text" 
-                                                size="lg" 
-                                                placeholder="Name" 
-                                                autoComplete="name" 
-                                                onChange={(e) => {
-                                                        this.name = e.target.value;
-                                                    }} 
-                                                className="position-relative" />
-                                </Form.Group>
-                                <Form.Group className="mb-3">
-                                    <Form.Control type="text" 
-                                                size="lg" 
-                                                placeholder="Surname" 
-                                                autoComplete="surname" 
-                                                className="position-relative"
-                                                onChange = { (e) => {
-                                                    this.surname = e.target.value;
-                                                }} />
-                                </Form.Group>
-                                <Form.Group className="mb-3">
-                                    <Form.Control type="text" 
-                                                size="lg" 
-                                                placeholder="Patronymic" 
-                                                autoComplete="patronymic" 
-                                                className="position-relative"
-                                                onChange = { (e) => {
-                                                    this.patronymic = e.target.value;
-                                                }} />
-                                </Form.Group>
-                                <Form.Group className="mb-3">
-                                    <Form.Control type="text" 
-                                                size="lg" 
-                                                placeholder="Age" 
-                                                autoComplete="age" 
-                                                className="position-relative"
-                                                onChange = { (e) => {
-                                                    this.age = e.target.value;
-                                                }} />
-                                </Form.Group>
-                                <div>
-                                    <div class="form-check">
-                                            <input
-                                                type="radio"
-                                                class="form-check-input"
-                                                onChange={()=>{this.sex = "male"}}
-                                                value="male"
-                                                name="flexRadioDefault"
-                                                id="flexRadioDefault1"/>
-                                            <label class="form-check-label" for="flexRadioDefault1">Male</label>
-                                        </div>
+                        <Modal open={this.state.openModal} onClose={this.onCloseModal}>
+                            <Container id="main-container" className="d-grid h-100">
+                                <Form id="sign-in-form" className="text-center p-3 w-100">
+                                    <h1 className="mb-3 fs-3 fw-normal">Edit patient:</h1>
+                                    <Form.Group>
+                                        <Form.Control type="text" 
+                                                    size="lg" 
+                                                    placeholder="Name" 
+                                                    autoComplete="name" 
+                                                    onChange={(e) => {
+                                                            this.name = e.target.value;
+                                                        }} 
+                                                    className="position-relative" />
+                                    </Form.Group>
+                                    <Form.Group className="mb-3">
+                                        <Form.Control type="text" 
+                                                    size="lg" 
+                                                    placeholder="Surname" 
+                                                    autoComplete="surname" 
+                                                    className="position-relative"
+                                                    onChange = { (e) => {
+                                                        this.surname = e.target.value;
+                                                    }} />
+                                    </Form.Group>
+                                    <Form.Group className="mb-3">
+                                        <Form.Control type="text" 
+                                                    size="lg" 
+                                                    placeholder="Patronymic" 
+                                                    autoComplete="patronymic" 
+                                                    className="position-relative"
+                                                    onChange = { (e) => {
+                                                        this.patronymic = e.target.value;
+                                                    }} />
+                                    </Form.Group>
+                                    <Form.Group className="mb-3">
+                                        <Form.Control type="text" 
+                                                    size="lg" 
+                                                    placeholder="Age" 
+                                                    autoComplete="age" 
+                                                    className="position-relative"
+                                                    onChange = { (e) => {
+                                                        this.age = e.target.value;
+                                                    }} />
+                                    </Form.Group>
+                                    <div>
                                         <div class="form-check">
-                                            <input
-                                                type="radio"
-                                                class="form-check-input"
-                                                onChange={()=>{this.sex = "female"}}
-                                                value="female"
-                                                name="flexRadioDefault"
-                                                id="flexRadioDefault2"/>
-                                            <label class="form-check-label" for="flexRadioDefault2">Female</label>
+                                                <input
+                                                    type="radio"
+                                                    class="form-check-input"
+                                                    onChange={()=>{this.sex = "male"}}
+                                                    value="male"
+                                                    name="flexRadioDefault"
+                                                    id="flexRadioDefault1"/>
+                                                <label class="form-check-label" for="flexRadioDefault1">Male</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input
+                                                    type="radio"
+                                                    class="form-check-input"
+                                                    onChange={()=>{this.sex = "female"}}
+                                                    value="female"
+                                                    name="flexRadioDefault"
+                                                    id="flexRadioDefault2"/>
+                                                <label class="form-check-label" for="flexRadioDefault2">Female</label>
+                                            </div>
                                         </div>
+                                    <Form.Group className="mb-3">
+                                        <Form.Control type="text" 
+                                                    size="lg" 
+                                                    placeholder="Address" 
+                                                    autoComplete="address" 
+                                                    className="position-relative"
+                                                    onChange = { (e) => {
+                                                        this.address = e.target.value;;
+                                                    }} />
+                                    </Form.Group>
+                                    <Form.Group className="mb-3">
+                                        <Form.Control type="text" 
+                                                    size="lg" 
+                                                    placeholder="Phone" 
+                                                    autoComplete="phone" 
+                                                    className="position-relative"
+                                                    onChange = { (e) => {
+                                                        this.phone = e.target.value;
+                                                    }} />
+                                    </Form.Group>
+                                    
+                                    <div className="d-grid">
+                                        <Button variant="primary" onClick={this.editPatient} size="lg">Apply</Button>
                                     </div>
-                                <Form.Group className="mb-3">
-                                    <Form.Control type="text" 
-                                                size="lg" 
-                                                placeholder="Address" 
-                                                autoComplete="address" 
-                                                className="position-relative"
-                                                onChange = { (e) => {
-                                                    this.address = e.target.value;;
-                                                }} />
-                                </Form.Group>
-                                <Form.Group className="mb-3">
-                                    <Form.Control type="text" 
-                                                size="lg" 
-                                                placeholder="Phone" 
-                                                autoComplete="phone" 
-                                                className="position-relative"
-                                                onChange = { (e) => {
-                                                    this.phone = e.target.value;
-                                                }} />
-                                </Form.Group>
-                                
-                                <div className="d-grid">
-                                    <Button variant="primary" onClick={this.editPatient} size="lg">Apply</Button>
-                                </div>
-                            </Form>
-                        </Container> 
+                                </Form>
+                            </Container> 
                         </Modal>
                     </div>
                   );

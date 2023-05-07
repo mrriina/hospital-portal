@@ -310,6 +310,26 @@ app.post('/doctorOutputTickets', (req, res) => {
     );
  });
 
+ app.post('/doctorOutputFreeTickets', (req, res) => {
+   const username = req.body.username;
+   const date = req.body.date;
+   const free = 'true';
+   
+   db.query(
+      "SELECT idtickets, time, user, doctor "+
+      "FROM tickets "+
+      "INNER JOIN doctor ON doctor.iddoctor = tickets.doctor "+
+      "WHERE doctor.username = ? AND tickets.date = ? AND tickets.free = ?",
+     [username, date, free],
+     function(err, result) {
+        if (err) {
+           res.send({err: err});
+        }
+        res.send(result);
+     }
+   );
+});
+
  app.post('/doctorFindPatientInDatabase', (req, res) => {
     const idpatient = req.body.idpatient;
     const iddoctor = req.body.iddoctor;

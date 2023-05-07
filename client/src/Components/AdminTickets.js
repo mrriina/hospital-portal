@@ -137,7 +137,8 @@ class AdminTickets extends React.Component {
           } else {
             return (
                 <div>
-                    <Button variant="btn btn-outline-secondary" onClick={(e)=> {this.newTicketModal()}}>New Ticket</Button>
+                    <div className="card-header text-uppercase">Tickets:</div>
+                    <Button variant="btn btn-outline-secondary mt-3" onClick={(e)=> {this.newTicketModal()}}>New Ticket</Button>
                     <div class="form-check mt-3">
                         <input class="form-check-input" type="checkbox" onClick={(e)=>{this.state.actualTickets = e.target.checked; this.componentDidMount();}} defaultChecked />
                         <label class="form-check-label" for="flexCheckChecked">

@@ -12,7 +12,7 @@ import DoctorPatientAccountingComponent from '../Components/DoctorPatientAccount
 function DoctorHome() {
    const doctorusername = window.location.href.split("=")[1];
    const [myProfileComponentStatus, setMyProfileComponentStatus] = useState("");
-   const [scheduleComponentStatus, setScheduleComponentStatus] = useState("");
+   const [scheduleComponentStatus, setScheduleComponentStatus] = useState("true");
    const [patientAccountingComponentStatus, setPatientAccountingComponentStatus] = useState("");
 
    // function SetMyProfileComponent() {

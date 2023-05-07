@@ -136,7 +136,8 @@ class AdminDoctors extends React.Component {
           } else {
             return (
                 <div>
-                    <Button variant="btn btn-outline-secondary" onClick={(e)=> {this.newDoctorModal()}}>New Doctor</Button>
+                    <div className="card-header text-uppercase">Doctors:</div>
+                    <Button variant="btn btn-outline-secondary mt-3" onClick={(e)=> {this.newDoctorModal()}}>New Doctor</Button>
 
                     <table class="table table-hover">
                         <thead>

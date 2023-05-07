@@ -12,7 +12,7 @@ import {Image} from 'react-bootstrap';
  
 function AdminHome() {
    const adminusername = window.location.href.split("=")[1];
-   const [patientStatus, setPatientStatus] = useState("");
+   const [patientStatus, setPatientStatus] = useState("true");
    const [doctorsStatus, setDoctorsStatus] = useState("");
    const [ticketsStatus, setTicketsStatus] = useState("");
 

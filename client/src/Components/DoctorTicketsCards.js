@@ -13,8 +13,6 @@ class DoctorTicketsCards extends React.Component {
         this.username = props.username;
         this.date = props.date;
 
-        
-        
         this.state = {
             tickets: null,
             complaints: null,

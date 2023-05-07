@@ -13,7 +13,7 @@ import {Image} from 'react-bootstrap';
 function PatientHome() {
    const patientusername = window.location.href.split("=")[1];
    const [patientStatus, setPatientStatus] = useState("");
-   const [ticketsStatus, setTicketsStatus] = useState("");
+   const [ticketsStatus, setTicketsStatus] = useState("true");
    const [electronicCardStatus, setElectronicCardStatus] = useState("");
 
    function SetPatientComponent() {
@@ -39,7 +39,7 @@ function PatientHome() {
          <Navbar bg="dark" variant="dark" id="nav">
             <Navbar.Brand>
                <a className="aStyle">
-                  <span onClick={()=>{setPatientStatus(true); setTicketsStatus(false);}}>Hospital</span>
+                  <span>Hospital</span>
                </a>
             </Navbar.Brand>
             {/* <Nav className="nav-content">
