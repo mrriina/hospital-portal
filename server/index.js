@@ -2,6 +2,8 @@ const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
 const { json } = require("express");
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 app.use(express.json());
@@ -20,8 +22,10 @@ const db = mysql.createConnection({
 
  app.post('/register', (req, res)=> {
     const username = req.body.username;
-    const password = req.body.password;
     const role = req.body.role;
+
+    const salt = bcrypt.genSaltSync(15);
+    const password = bcrypt.hashSync(req.body.password, salt);
 
     db.execute(
       "INSERT INTO users (username, password, role) VALUES (?,?,?)",
@@ -38,21 +42,34 @@ const db = mysql.createConnection({
 
  app.post('/login', (req, res) => {
     const username = req.body.username;
-    const password = req.body.password;
     
     db.execute(
-        "SELECT * FROM users WHERE username = ? AND password = ?",
-        [username, password],
+        "SELECT * FROM users WHERE username = ?",
+        [username],
         (err, result)=> {
             if (err) {
                 res.send({err: err});
+            } else if(result.length == 0) {
+               res.send(result);
+            } else {
+               const password = bcrypt.compareSync(req.body.password, result[0].password);
+
+               if(password) {
+                  const token = jwt.sign({
+                     username: result[0].username,
+                     role: result[0].role
+                  }, 'my jwt key', {expiresIn: 120*120})
+                  res.send(result);
+               } else {
+                  res.send({err: 'invalid password'});
+               }
             }
-            
-            res.send(result);
         }
     );
  });
 
+
+ //----------------------------------- patient home ------------------------------------------
 
  app.post('/checkPersonByAddress', (req, res) => {
    const surname = req.body.surname;

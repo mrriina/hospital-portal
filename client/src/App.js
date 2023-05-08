@@ -49,7 +49,11 @@ function App() {
          username: username,
          password: password,
       }).then((response) => {
-         if (response.data[0] != null) {
+         // console.log('response:::: '+JSON.stringify(response.data[0].username));
+
+         if (response.data.err != null) {
+            setLoginStatus(response.data.err);
+         } else if(response.data[0] != null) {
             setLoginStatus('success');
             if(response.data[0].role == 'patient') {
                window.location.assign('http://localhost:3000/patientHome?username='+username);
@@ -60,7 +64,7 @@ function App() {
                window.location.assign('http://localhost:3000/doctorHome?username='+username);
             }
          } else {
-            setLoginStatus ('incorrect username or password');
+            setLoginStatus ('invalid entered data');
          }
       });
    };
