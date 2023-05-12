@@ -2,9 +2,7 @@ import React from 'react';
 import Axios from 'axios';
 
 import '../App.css';
-import Button from 'react-bootstrap/esm/Button';
-import { Toast, Form, Modal, Card } from "react-bootstrap";
-import { ToastContainer, toast } from 'react-toastify';
+import { Card } from "react-bootstrap";
 import 'react-toastify/dist/ReactToastify.css';
 
 class DoctorFreeTicketsCards extends React.Component {
@@ -18,14 +16,13 @@ class DoctorFreeTicketsCards extends React.Component {
         };    
     }
 
-
-      componentDidMount() {
-        Axios.post("http://localhost:3001/doctorOutputFreeTickets", {
-                username: this.username,
-                date: this.date,
-            }).then((response) => {
-                this.setState({
-                    tickets: response.data.map(item => {
+    componentDidMount() {
+      Axios.post("http://localhost:3001/doctorOutputFreeTickets", {
+              username: this.username,
+              date: this.date,
+          }).then((response) => {
+              this.setState({
+                  tickets: response.data.map(item => {
                       return (
                         <div class="col mb-3">
                         <Card style={{ width: '16rem' }} className='indent' onDoubleClick={() => this.handleShow(item)}>
@@ -39,10 +36,9 @@ class DoctorFreeTicketsCards extends React.Component {
                         </div>
                       );
                     })
-                  });
-            });
-      }
-
+                });
+          });
+    }
 
     render() {
         if (!this.state.tickets) {

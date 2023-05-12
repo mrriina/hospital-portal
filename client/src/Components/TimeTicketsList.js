@@ -25,7 +25,7 @@ class TimeTicketsList extends React.Component {
                         <option value={item.time}>{item.time}</option>
                       );
                     })
-                  });
+                });
             });
       }
     
@@ -39,7 +39,7 @@ class TimeTicketsList extends React.Component {
                     {this.state.time}
                 </Form.Select>
             );
-          }
+        }
     }
 }
 

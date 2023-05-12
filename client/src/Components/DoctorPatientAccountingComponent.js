@@ -1,10 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
 
 class DoctorPatientAccountingComponent extends React.Component {
@@ -25,7 +22,6 @@ class DoctorPatientAccountingComponent extends React.Component {
         });
      };
 
-
     componentDidMount() {
         Axios.post("http://localhost:3001/doctorGetPatientAccounting", {
                 iddoctor: this.doctorusername,
@@ -43,11 +39,11 @@ class DoctorPatientAccountingComponent extends React.Component {
                             <td>{item.phone}</td>
                             <Button variant="btn btn-outline-danger" onClick={(e)=> {this.deletePatientFromAccounting(item.id);}}>Delete</Button>
                         </tr>
-                      );
-                    })
-                  });
+                    );
+                })
             });
-      }
+        });
+    }
     
     render() {
         if (!this.state.patients) {
@@ -71,7 +67,7 @@ class DoctorPatientAccountingComponent extends React.Component {
                     </table>
                 </div>
             );
-          }
+        }
     }
 }
 

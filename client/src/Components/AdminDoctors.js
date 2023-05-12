@@ -155,7 +155,6 @@ class AdminDoctors extends React.Component {
                         <tbody>{this.state.doctors}</tbody>
                     </table>
 
-
 {/*------------------------------------------- edit modal ---------------------------------------------*/}
 
                     <Modal open={this.state.openModal} onClose={this.onCloseEditModal}>
@@ -214,7 +213,7 @@ class AdminDoctors extends React.Component {
                                                     this.cabinet = e.target.value;;
                                                 }} />
                                 </Form.Group>
-                                
+
                                 <div className="d-grid">
                                     <Button variant="primary" onClick={this.editDoctor} size="lg">Apply</Button>
                                 </div>
@@ -312,7 +311,7 @@ class AdminDoctors extends React.Component {
 {/*----------------------------------------------------------------------------------------------------*/}
                 </div>
             );
-          }
+        }
     }
 }
 

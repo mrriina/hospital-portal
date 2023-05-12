@@ -1,14 +1,8 @@
 import React, {useState} from 'react';
-import Axios from 'axios';
 
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import { Modal } from 'react-responsive-modal';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import 'react-responsive-modal/styles.css';
-
 import DatePicker from 'sassy-datepicker';
 
 import DoctorTicketsCards from '../Components/DoctorTicketsCards';
@@ -43,10 +37,7 @@ function DoctorScheduleComponent() {
                 </div>
             </div>
         </div>
-    );
-        
-          
-    
+    ); 
 }
 
 export default DoctorScheduleComponent;

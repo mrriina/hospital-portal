@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 import Axios from 'axios';
 
 import '../App.css';
-import FlipPage, { Page } from "react-pageflip";
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/esm/Button';
-import { Container, Row, Col} from 'react-bootstrap';
 
 class PatientElectronicCard extends React.Component {
     constructor(props) {
@@ -16,15 +13,7 @@ class PatientElectronicCard extends React.Component {
             cards: [],
             currentCard: 1,
         };    
-    }
-
-    // deleteTicket = (idtickets) => {
-    //     Axios.post("http://localhost:3001/deleteUsersTicket", {
-    //         idtickets: idtickets,
-    //     }).then((response) => {
-    //        this.componentDidMount();
-    //     });
-    //  };    
+    }  
 
     componentDidMount() {
         Axios.post("http://localhost:3001/patientGetElectronicCards", {

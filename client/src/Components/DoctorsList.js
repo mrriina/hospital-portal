@@ -28,9 +28,9 @@ class DoctorList extends React.Component {
                             </button>
                         </tr>
                       );
-                    })
-                  });
-            });
+                  })
+              });
+          });
       }
     
     render() {
@@ -42,7 +42,7 @@ class DoctorList extends React.Component {
                 <tbody>{this.state.doctors}</tbody>
               </table>
             );
-          }
+        }
     }
 }
 

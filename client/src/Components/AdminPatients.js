@@ -103,7 +103,7 @@ class AdminPatients extends React.Component {
                         </tr>
                       );
                     })
-                  });
+                });
             });
       }
     
@@ -226,7 +226,7 @@ class AdminPatients extends React.Component {
                             </Container> 
                         </Modal>
                     </div>
-                  );
+                );
           }
     }
 }

@@ -15,15 +15,14 @@ class DoctorsListForNewTicket extends React.Component {
     componentDidMount() {
         Axios.post("http://localhost:3001/getDoctorsAdminHome", {
             }).then((response) => {
-                console.log('response= '+JSON.stringify(response));
                 this.setState({
                     doctors: response.data.map(item => {
                       return (
                         <option value={item.iddoctor}>{item.name} {item.surname} {item.patronymic}</option>
                       );
-                    })
-                  });
-            });
+                  })
+              });
+          });
       }
     
     render() {
@@ -36,7 +35,7 @@ class DoctorsListForNewTicket extends React.Component {
                     {this.state.doctors}
                 </Form.Select>
             );
-          }
+        }
     }
 }
 

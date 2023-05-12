@@ -25,13 +25,9 @@ function App() {
    const register = () => {
       if(confPasswordReg != passwordReg) {
          setRegisterStatus('passwords don`t match');
-      }
-      
-      else if(passwordReg.length > 45 || usernameReg.length > 45) {
+      } else if(passwordReg.length > 45 || usernameReg.length > 45) {
          setRegisterStatus('username or password is too long');
-      }
-
-      else {
+      } else {
          Axios.post("http://localhost:3001/register", {
             username: usernameReg,
             password: passwordReg,
@@ -49,10 +45,8 @@ function App() {
          username: username,
          password: password,
       }).then((response) => {
-         // console.log('response:::: '+JSON.stringify(response.data[0].username));
-
          if (response.data.err != null) {
-            setLoginStatus(response.data.err);
+            setLoginStatus(response.data.err);  
          } else if(response.data[0] != null) {
             setLoginStatus('success');
             if(response.data[0].role == 'patient') {
@@ -75,7 +69,6 @@ function App() {
                <img className="mb-4 bootstrap-logo" 
                      src="https://img2.freepng.ru/20180713/rzc/kisspng-hospital-logo-clinic-health-care-physician-5b48c1801f8383.2739660215314947841291.jpg" 
                      alt="Bootstrap 5" />
-
                <h1 className="mb-3 fs-3 fw-normal">Please sign in</h1>
                <h2 className="status" style={{color: loginStatus=='success' ? 'green' : 'red' }}>{loginStatus}</h2>
                <Form.Group>

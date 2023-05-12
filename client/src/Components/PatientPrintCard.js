@@ -22,7 +22,7 @@ class PrintCard extends Component {
           </Card>
         </div>
       );
-  }
+    }
 }
 
 export default PrintCard;

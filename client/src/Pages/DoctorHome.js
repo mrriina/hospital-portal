@@ -34,9 +34,7 @@ function DoctorHome() {
         }
       }
 
-   
-
-   return (
+    return (
       <>
          <Navbar bg="dark" variant="dark" id="nav">
             <Navbar.Brand>

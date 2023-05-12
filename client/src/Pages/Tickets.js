@@ -4,12 +4,12 @@ import Axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import '../Home.css';
+import '../App.css';
 
 import DoctorList from '../Components/DoctorsList';
 import TimeTicketsList from '../Components/TimeTicketsList';
 import TicketsCards from '../Components/TicketsCards';
-import '../Home.css';
-import '../App.css';
 
 function Tickets() {
     const username = window.location.href.split("=")[1];
@@ -49,7 +49,6 @@ function Tickets() {
      };
 
      function Test() {
-        console.log('actualTickets='+actualTickets);
         return(<TicketsCards username={username} actualTickets={actualTickets}/>);
      }
 
@@ -72,7 +71,7 @@ function Tickets() {
                 <Modal show={show} onHide={handleClose}>
                   <Modal.Header>
                      <div className="text-center w-100">
-                        <h1 className="mb-3 fs-3 fw-normal">New ticket</h1>
+                        <h1 className="mb-3 fs-3 fw-normal">New ticket</h1> 
                      </div>
                   </Modal.Header>
 
@@ -105,7 +104,6 @@ function Tickets() {
                     <div>
                         <Button variant="primary" className='indent' onClick={handleShowTime} size="xs" disabled={step2}>Choose time</Button>
                     </div>
-
 
     {/*------------------------------------------ modal for choosing doctor -------------------------------------------------- */}
                     <Modal show={showDoctors} onHide={handleCloseDoctors}>

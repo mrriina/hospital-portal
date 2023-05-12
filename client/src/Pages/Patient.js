@@ -205,7 +205,6 @@ function Patient() {
                                     value={phone}
                                     disabled={isDisabled}/>
                     </Form.Group>
-                    
                     <ChangeButton/>
                     </Form>
                 </Container>

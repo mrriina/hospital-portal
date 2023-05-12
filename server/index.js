@@ -90,8 +90,7 @@ const db = mysql.createConnection({
    );
 });
 
-
- app.post('/applyInfPatient', (req, res) => {
+app.post('/applyInfPatient', (req, res) => {
     const name = req.body.name;
     const surname = req.body.surname;
     const patronymic = req.body.patronymic;
@@ -200,7 +199,6 @@ app.post('/reserveTicket', (req, res) => {
      [free, status, username, doctor, date, time],
      function(err, result) {
         if (err) {
-            console.log(JSON.stringify(err));
            res.send({err: err});
         }
        
@@ -212,7 +210,6 @@ app.post('/reserveTicket', (req, res) => {
 app.post('/outputTickets', (req, res) => {
    const username = req.body.username;
    const actualTickets = req.body.actualTickets;
-   console.log('actualTickets=='+actualTickets);
 
    if(actualTickets == true || actualTickets == undefined) {
       db.query(
@@ -271,7 +268,6 @@ app.post('/deleteUsersTicket', (req, res) => {
      }
    );
 });
-
 
 app.post('/patientGetElectronicCards', (req, res) => {
    const patientusername = req.body.username;
@@ -365,7 +361,7 @@ app.post('/doctorOutputTickets', (req, res) => {
    );
 });
 
- app.post('/doctorFindPatientInDatabase', (req, res) => {
+app.post('/doctorFindPatientInDatabase', (req, res) => {
     const idpatient = req.body.idpatient;
     const iddoctor = req.body.iddoctor;
     
@@ -381,7 +377,6 @@ app.post('/doctorOutputTickets', (req, res) => {
         }
     );
  });
-
 
  app.post('/doctorAddPatientToDatabase', (req, res) => {
     const idpatient = req.body.idpatient;
@@ -400,7 +395,6 @@ app.post('/doctorOutputTickets', (req, res) => {
     );
  });
 
-
  app.post('/doctorInsertRecordToElectronicCard', (req, res) => {
     const idpatient = req.body.idpatient;
     const iddoctor = req.body.iddoctor;
@@ -413,7 +407,6 @@ app.post('/doctorOutputTickets', (req, res) => {
       [idpatient, iddoctor, currentDate, complaints, conclusion],
       (err, result)=> {
          if (err) {
-            console.log('err section');
             res.send({err: err});
          }
         
@@ -421,7 +414,6 @@ app.post('/doctorOutputTickets', (req, res) => {
       }
     );
  });
-
 
  app.post('/doctorCompleteTicket', (req, res) => {
     const idticket = req.body.idticket;
@@ -439,7 +431,6 @@ app.post('/doctorOutputTickets', (req, res) => {
       }
     );
  });
-
 
  app.post('/doctorGetPatientAccounting', (req, res) => {
    const doctorusername = req.body.iddoctor;
@@ -459,7 +450,6 @@ app.post('/doctorOutputTickets', (req, res) => {
        }
    );
 });
-
 
 app.post('/doctorDeletePatientAccounting', (req, res) => {
    const idaccounting = req.body.idaccounting;
@@ -543,8 +533,6 @@ app.post('/changeTicketPatientAdminHome', (req, res) => {
      }
    );
 });
-
-
 
 app.post('/getDoctorsAdminHome', (req, res) => {
    db.execute(
@@ -649,8 +637,6 @@ app.post('/newDoctor', (req, res) => {
     );
 });
 
-
-
 app.post('/getTicketsAdminHome', (req, res) => {
    const actualTickets = req.body.actualTickets;
    
@@ -667,7 +653,6 @@ app.post('/getTicketsAdminHome', (req, res) => {
             if (err) {
                   res.send({err: err});
             }
-            console.log('result: '+ JSON.stringify(result));
             res.send(result);
          }
       );

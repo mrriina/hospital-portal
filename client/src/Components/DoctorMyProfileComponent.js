@@ -1,11 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 
-// import Container from 'react-bootstrap/Container';
 import { Container, Row, Col, Card, Image } from 'react-bootstrap';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
 
 class DoctorMyProfileComponent extends React.Component {
@@ -17,7 +13,6 @@ class DoctorMyProfileComponent extends React.Component {
             doctorinfo: null
         };   
     }
-
 
     componentDidMount() {
         Axios.post("http://localhost:3001/doctorGetInfoForMyProfilePage", {
@@ -31,7 +26,7 @@ class DoctorMyProfileComponent extends React.Component {
     
     render() {
         if (!this.state.doctorinfo) {
-            return (<div>dfgh</div>);
+            return (<div></div>);
           } else {
                 return (
                     <Container>

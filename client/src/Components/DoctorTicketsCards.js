@@ -2,10 +2,10 @@ import React from 'react';
 import Axios from 'axios';
 
 import '../App.css';
-import Button from 'react-bootstrap/esm/Button';
-import { Toast, Form, Modal, Card } from "react-bootstrap";
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Button from 'react-bootstrap/esm/Button';
+import { Form, Modal, Card } from "react-bootstrap";
+import { ToastContainer, toast } from 'react-toastify';
 
 class DoctorTicketsCards extends React.Component {
     constructor(props) {
@@ -20,36 +20,34 @@ class DoctorTicketsCards extends React.Component {
         };    
     }
 
-
-      completeTicket = (idticket) => {
+    completeTicket = (idticket) => {
         Axios.post("http://localhost:3001/doctorCompleteTicket", {
-                idticket: idticket,
-                }).then((response) => {
+              idticket: idticket,
+            }).then((response) => {
                     this.componentDidMount();
-                }).catch(error => {
+            }).catch(error => {
                     this.errorToast();
-                });
-      }
+          });
+    }
 
-
-      handleShow = (item) => {
+    handleShow = (item) => {
         this.setState({
             show: true,
             selectedTicket: item
         });
-      }
+    }
 
-      handleClose = () => {
+    handleClose = () => {
         this.setState({
             show: false,
             selectedTicket: null
         });
         this.state.complaints = null;
         this.state.conclusion = null;
-      }
+    }
 
 
-      makeRecordHandler = (idpatient, iddoctor) => {
+    makeRecordHandler = (idpatient, iddoctor) => {
         if(this.state.complaints == null || this.state.complaints == '' || this.state.conclusion == null || this.state.conclusion == '') {
             toast.error("Fill in all the fields!", {
                 position: toast.POSITION.TOP_CENTER,
@@ -77,12 +75,11 @@ class DoctorTicketsCards extends React.Component {
                         progress: undefined,
                       });
 
-                      this.handleClose();
-
+                    this.handleClose();
                 }).catch(error => {
                     this.errorToast();
-                });
-        }       
+              });
+          }       
       }
 
       errorToast = () => {
@@ -121,13 +118,9 @@ class DoctorTicketsCards extends React.Component {
                           this.successAddingPatient();
                         }).catch(error => {
                             this.errorAddingPatient();
-                        });
+                      });
                    }
-                }).catch(error => {
-                    
-                });
-
-        
+                }).catch(error => {});
       }
 
       successAddingPatient = () => {
@@ -154,7 +147,6 @@ class DoctorTicketsCards extends React.Component {
         });
       };
     
-
       componentDidMount() {
         Axios.post("http://localhost:3001/doctorOutputTickets", {
                 username: this.username,
@@ -176,10 +168,9 @@ class DoctorTicketsCards extends React.Component {
                         </div>
                       );
                     })
-                  });
+                });
             });
       }
-
 
     render() {
         if (!this.state.tickets) {
@@ -235,7 +226,7 @@ class DoctorTicketsCards extends React.Component {
                     />
                 </div>
             );
-          }
+        }
     }
 }
 

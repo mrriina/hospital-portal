@@ -30,7 +30,6 @@ class TicketsCards extends React.Component {
         });
      };   
      
-     
      printCard(card) {
         const printWindow = window.open('', 'Print', 'height=600,width=800');
         printWindow.document.write('<html><head><title>Print</title><link rel="stylesheet" href="../App.css" media="print"></head><body>');
@@ -71,7 +70,7 @@ class TicketsCards extends React.Component {
                         </div>
                       );
                     })
-                  });
+                });
             });
       }
     
@@ -84,7 +83,7 @@ class TicketsCards extends React.Component {
                     {this.state.tickets}
                 </div>
             );
-          }
+        }
     }
 }
 

@@ -42,12 +42,6 @@ function AdminHome() {
                   <span>Hospital</span>
                </a>
             </Navbar.Brand>
-            {/* <Nav className="nav-content">
-               <Nav.Link onClick={()=>{setPatientStatus(true); setDoctorsStatus(false); setTicketsStatus(false);}}>Patients</Nav.Link>
-               <Nav.Link onClick={()=>{setPatientStatus(false); setDoctorsStatus(true); setTicketsStatus(false);}}>Doctors</Nav.Link>
-               <Nav.Link onClick={()=>{setPatientStatus(false); setDoctorsStatus(false); setTicketsStatus(true);}}>Tickets</Nav.Link>
-               <Nav.Link onClick={()=>{window.location.assign('http://localhost:3000/');}} id="logoutAdminHome">Logout</Nav.Link>
-            </Nav> */}
             <Nav id="navprofile">
                <Image src='https://e7.pngegg.com/pngimages/84/165/png-clipart-united-states-avatar-organization-information-user-avatar-service-computer-wallpaper-thumbnail.png'
                             rounded
